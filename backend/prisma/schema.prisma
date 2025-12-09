@@ -11,6 +11,7 @@ model BusinessContact {
   id                   Int      @id @default(autoincrement())
   uuid                 String   @unique @default(uuid())
   agentEmail           String
+  nip                  String
   customerCompanyName  String
   customerEmail        String
   customerPhone        String

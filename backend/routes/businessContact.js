@@ -8,8 +8,9 @@ router.post("/", async (req, res) => {
   console.log("body request", req.body);
   const {
     agentEmail,
-    customerCompanyName,
+    nip,
     customerEmail,
+    customerCompanyName,
     customerPhone,
     customerRepoPath,
   } = req.body;
@@ -19,6 +20,7 @@ router.post("/", async (req, res) => {
       data: {
         agentEmail,
         customerCompanyName,
+        nip,
         customerEmail,
         customerPhone,
         customerRepoPath,
