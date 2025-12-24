@@ -1,21 +1,21 @@
 import "dotenv/config";
 import express from "express";
-import authRoutes from "./routes/auth.js";
 import businessContactRouter from "./routes/businessContact.js";
+import { poolPromise } from "./db.ts";
 
 const app = express();
-
 app.use(express.json());
 
+poolPromise
+  .then(() => console.log("✅ Połączenie z bazą działa!"))
+  .catch((err) => console.error("❌ Nie udało się połączyć z bazą", err));
+
 app.get("/", (req, res) => {
-  res.send("Server działa! /api/auth i /api/business-contact są aktywne");
+  res.send("Server działa!");
 });
 
-//endpoints
 app.use("/api/business-contact", businessContactRouter);
-app.use("/api/auth", authRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(3000, () => {
+  console.log("Server listening on port 3000");
 });

@@ -1,40 +1,38 @@
 import express from "express";
-import { prisma } from "../lib/prisma.ts";
+import { poolPromise } from "../db.js";
 
 const router = express.Router();
 
-// Tworzenie BusinessContact
 router.post("/", async (req, res) => {
-  console.log("body request", req.body);
   const {
     agentEmail,
     nip,
-    customerEmail,
     customerCompanyName,
+    customerEmail,
     customerPhone,
     customerRepoPath,
+    user,
   } = req.body;
 
   try {
-    const newContact = await prisma.businessContact.create({
-      data: {
-        agentEmail,
-        customerCompanyName,
-        nip,
-        customerEmail,
-        customerPhone,
-        customerRepoPath,
-        user: null,
-      },
-    });
+    const pool = await poolPromise;
 
-    res.status(201).json({});
+    await pool
+      .request()
+      .input("agentEmail", agentEmail)
+      .input("nip", nip)
+      .input("customerCompanyName", customerCompanyName)
+      .input("customerEmail", customerEmail)
+      .input("customerPhone", customerPhone)
+      .input("customerRepoPath", customerRepoPath)
+      .input("user", user).query(`INSERT INTO BusinessContact
+              (agentEmail, nip, customerCompanyName, customerEmail, customerPhone, customerRepoPath, [user])
+              VALUES (@agentEmail, @nip, @customerCompanyName, @customerEmail, @customerPhone, @customerRepoPath, @user)`);
+
+    res.status(201).json({ message: "BusinessContact utworzony!" });
   } catch (err) {
-    console.error("Błąd Prisma:", err);
-    res.status(500).json({
-      error: "Nie udało się utworzyć BusinessContact",
-      details: err.message,
-    });
+    console.error(err);
+    res.status(500).json({ error: "Błąd serwera" });
   }
 });
 
