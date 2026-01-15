@@ -9,8 +9,8 @@ module.exports = {
         italic: ["Inter-Italic", "sans-serif"],
       },
       colors: {
-        primary: "#0AB101",
-        secondary: "#9AEA96",
+        primary: "#002040",
+        secondary: "#9CCDFF",
         primaryText: "#000000",
         secondaryText: "#FFFFFF",
         tertiaryText: "#828282",

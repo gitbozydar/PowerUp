@@ -9,7 +9,12 @@ export default function Landing() {
       <View className="flex-1 bg-white px-6">
         {/* logo */}
         <View className="items-center p-14">
-          <Text className="text-primary font-extrabold text-5xl">PowerUp</Text>
+          <Image
+            className="w-72 h-32"
+            source={{
+              uri: "https://buisnessuserflowgro8d97.blob.core.windows.net/email-assets/FullLogo.png",
+            }}
+          />
         </View>
         <View>
           {/* labelki */}
@@ -29,7 +34,7 @@ export default function Landing() {
               className="border border-border rounded-lg px-4 py-3"
             />
             <TouchableOpacity className="bg-primary rounded-lg py-4 items-center mb-6">
-              <Text className="text-secondaryText">Continue</Text>
+              <Text className="text-secondaryText">Kontynuuj</Text>
             </TouchableOpacity>
           </View>
           {/* divider */}
@@ -55,8 +60,8 @@ export default function Landing() {
             </View>
             <View>
               <Text className="font-light text-center text-tertiaryText">
-                By clicking continue, you agree to our Terms of Service and
-                Privacy Policy
+                Klikając „Kontynuuj”, zgadzasz się na nasze Warunki korzystania
+                z usługi oraz Politykę prywatności.
               </Text>
             </View>
           </View>

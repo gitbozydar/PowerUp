@@ -5,6 +5,14 @@ import businessContactRouter from "./routes/businessContact.js";
 const app = express();
 app.use(express.json());
 
+app.use("/api/business-contact", (req, res, next) => {
+  const apiKey = req.headers["x-api-key"];
+  if (!apiKey || apiKey !== process.env.API_KEY) {
+    return res.status(403).json({ error: "Forbidden - invalid API key" });
+  }
+  next();
+});
+
 app.get("/", (req, res) => {
   res.send("Server działa!");
 });
