@@ -39,13 +39,6 @@ const CTA = () => {
             style={{ animationFillMode: "forwards" }}
           >
             <a
-              href="tel:+48123456789"
-              className="flex items-center gap-2 hover:text-white transition-colors"
-            >
-              <Phone className="w-5 h-5" />
-              <span>+48 123 456 789</span>
-            </a>
-            <a
               href="mailto:kontakt@powerup.pl"
               className="flex items-center gap-2 hover:text-white transition-colors"
             >
