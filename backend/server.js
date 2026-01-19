@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import businessContactRouter from "./routes/businessContact.js";
+import checkEmailRouter from "./routes/checkEmail.js";
 
 const app = express();
 app.use(express.json());
@@ -14,10 +15,12 @@ app.use("/api/business-contact", (req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Server działa!");
+  res.send("Server working");
 });
 
 app.use("/api/business-contact", businessContactRouter);
+
+app.use("/api/check-email", checkEmailRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

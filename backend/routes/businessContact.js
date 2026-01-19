@@ -29,10 +29,10 @@ router.post("/", async (req, res) => {
               (agentEmail, nip, customerCompanyName, customerEmail, customerPhone, customerRepoPath, [user])
               VALUES (@agentEmail, @nip, @customerCompanyName, @customerEmail, @customerPhone, @customerRepoPath, @user)`);
 
-    res.status(201).json({ message: "BusinessContact utworzony!" });
+    res.status(201).json({ message: "Created business contact" });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Błąd serwera" });
+    res.status(500).json({ error: "Server failed" });
   }
 });
 
