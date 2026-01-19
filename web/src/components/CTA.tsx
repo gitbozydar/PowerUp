@@ -10,12 +10,12 @@ const CTA = () => {
 
       <div className="container px-4 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          <h2
+          <h3
             className="text-3xl md:text-5xl font-bold text-primary-foreground mb-6 opacity-0 animate-fade-up"
             style={{ animationFillMode: "forwards" }}
           >
             Gotowy zaoszczędzić na energii?
-          </h2>
+          </h3>
           <p
             className="text-xl text-primary-foreground/90 mb-10 opacity-0 animate-fade-up animate-delay-100"
             style={{ animationFillMode: "forwards" }}

@@ -21,11 +21,11 @@ const Hero = () => {
           </div>
 
           {/* Main heading */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 opacity-0 animate-fade-up animate-delay-100">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 opacity-0 animate-fade-up animate-delay-100">
             Oszczędź nawet do <span className="text-gradient">30%</span>
             <br />
             na rachunkach za energię
-          </h1>
+          </h2>
 
           {/* Subheading */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 opacity-0 animate-fade-up animate-delay-200">

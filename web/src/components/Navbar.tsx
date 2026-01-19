@@ -13,9 +13,9 @@ const Navbar = () => {
             <div className="w-10 h-10 bg-gradient-cta rounded-xl flex items-center justify-center group-hover:animate-pulse-glow transition-all">
               <Zap className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold">
-              Power<span className="text-primary">Up</span>
-            </span>
+            <h1 className="text-xl text-gradient font-bold">
+              Go<span className="text-primary">PowerUp</span>
+            </h1>
           </a>
 
           {/* Desktop Navigation */}
