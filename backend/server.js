@@ -2,8 +2,12 @@ import "dotenv/config";
 import express from "express";
 import businessContactRouter from "./routes/businessContact.js";
 import checkEmailRouter from "./routes/checkEmail.js";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors({ origin: "*" }));
+
 app.use(express.json());
 
 app.use("/api/business-contact", (req, res, next) => {

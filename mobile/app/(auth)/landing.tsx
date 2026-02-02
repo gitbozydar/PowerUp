@@ -9,7 +9,7 @@ import { router } from "expo-router";
 export default function Landing() {
   const [email, setEmail] = useState("");
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     const result = emailSchema.safeParse(email);
 
     if (!result.success) {
