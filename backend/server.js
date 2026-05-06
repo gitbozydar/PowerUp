@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import businessContactRouter from "./routes/businessContact.js";
 import checkEmailRouter from "./routes/checkEmail.js";
+import registerRouter from "./routes/register.js";
 import cors from "cors";
 
 const app = express();
@@ -25,6 +26,8 @@ app.get("/", (req, res) => {
 app.use("/api/business-contact", businessContactRouter);
 
 app.use("/api/check-email", checkEmailRouter);
+
+app.use("/api/register", registerRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

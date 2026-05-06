@@ -5,10 +5,9 @@ import "./globals.css";
 
 export default function Index() {
   const router = useRouter();
-  const isLoggedIn = false; // Twój auth state
+  const isLoggedIn = false;
 
   useEffect(() => {
-    // opóźnienie pomaga upewnić się, że RootLayout jest zamontowany
     const timeout = setTimeout(() => {
       router.replace(isLoggedIn ? "/(tabs)/dashboard" : "/(auth)/landing");
     }, 0);

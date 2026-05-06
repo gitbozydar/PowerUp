@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   View,
@@ -8,13 +8,23 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { z } from "zod";
+
+// ---- WALIDACJA HASŁA ----
+const passwordSchema = z
+  .string()
+  .min(8, "Hasło musi mieć minimum 8 znaków")
+  .regex(/[A-Z]/, "Hasło musi zawierać przynajmniej jedną wielką literę")
+  .regex(/[0-9]/, "Hasło musi zawierać przynajmniej jedną cyfrę");
 
 export default function Password() {
   const { email } = useLocalSearchParams();
   const [userExists, setUserExists] = useState<boolean | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const checkUser = async () => {
@@ -28,12 +38,56 @@ export default function Password() {
         setUserExists(data.exists);
       } catch (err) {
         console.log(err);
+        setError("Błąd serwera");
       } finally {
         setLoading(false);
       }
     };
     checkUser();
   }, [email]);
+
+  const handleSubmit = async () => {
+    setError("");
+
+    if (!passwordSchema.safeParse(password).success) {
+      const parsed = passwordSchema.safeParse(password);
+      setError(parsed.success ? "" : parsed.error.issues[0].message);
+      return;
+    }
+
+    if (!userExists && password !== confirmPassword) {
+      setError("Hasła muszą być takie same");
+      return;
+    }
+
+    try {
+      const url = userExists
+        ? "http://localhost:3000/api/login"
+        : "http://localhost:3000/api/register";
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "Coś poszło nie tak");
+        return;
+      }
+
+      console.log("SUCCESS:", data);
+      alert(userExists ? "Zalogowano!" : "Konto utworzone!");
+
+      // Tu możesz przekierować do Home / dashboard
+      // router.push("/home");
+    } catch (err) {
+      console.log(err);
+      setError("Błąd sieci");
+    }
+  };
 
   if (loading) {
     return (
@@ -55,48 +109,56 @@ export default function Password() {
             }}
           />
         </View>
-        <View>
-          {/* labelki */}
-          <View className="mb-5">
-            <Text className="text-primaryText text-lg font-medium">
-              {userExists ? <>Email: {email}</> : <>Zarejestruj się</>}
+
+        {/* labelki */}
+        <View className="mb-5">
+          <Text className="text-primaryText text-lg font-medium">
+            {userExists ? <>Email: {email}</> : <>Zarejestruj się</>}
+          </Text>
+        </View>
+
+        {/* inputy */}
+        <View className="gap-4">
+          <View className="gap-1">
+            <Text className="text-primaryText font-extralight">
+              Wprowadź hasło:
             </Text>
+            <TextInput
+              placeholder="Hasło"
+              placeholderTextColor="#828282"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              className="border border-border rounded-lg px-4 py-3"
+            />
           </View>
-          {/* email + button */}
-          <View className="gap-4">
+
+          {!userExists && (
             <View className="gap-1">
               <Text className="text-primaryText font-extralight">
-                Wprowadź hasło:
+                Powtórz hasło:
               </Text>
               <TextInput
-                placeholderTextColor={"#828282"}
-                placeholder="Hasło"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry={true}
+                placeholder="Powtórz hasło"
+                placeholderTextColor="#828282"
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                secureTextEntry
                 className="border border-border rounded-lg px-4 py-3"
               />
             </View>
-            {!userExists && (
-              <View className="gap-1">
-                <Text className="text-primaryText font-extralight">
-                  Powtórz hasło:
-                </Text>
-                <TextInput
-                  placeholderTextColor={"#828282"}
-                  placeholder="Powtórz hasło"
-                  secureTextEntry={true}
-                  className="border border-border rounded-lg px-4 py-3"
-                />
-              </View>
-            )}
-            <TouchableOpacity className="bg-primary rounded-lg py-4 items-center mb-6">
-              <Text className="text-secondaryText">
-                {userExists ? <>Zaloguj się</> : <>Utwórz konto</>}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          {/* divider */}
+          )}
+
+          {error ? <Text className="text-red-500">{error}</Text> : null}
+
+          <TouchableOpacity
+            onPress={handleSubmit}
+            className="bg-primary rounded-lg py-4 items-center mb-6"
+          >
+            <Text className="text-secondaryText">
+              {userExists ? "Zaloguj się" : "Utwórz konto"}
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
