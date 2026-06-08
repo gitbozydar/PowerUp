@@ -1,3 +1,4 @@
+import { links } from "@/lib/links";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,15 +17,15 @@ const Footer = () => {
           </div>
           <div className="flex-2 flex  justify-center">
             <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 text-sm font-medium">
-              <Link href="/energy" className="hover:text-accent transition">
-                Energia i Gaz
-              </Link>
-              <Link href="/renewable" className="hover:text-accent transition">
-                OZE
-              </Link>
-              <Link href="/contact" className="hover:text-accent transition">
-                Kontakt
-              </Link>
+              {links.map(({ name, path }, index) => (
+                <Link
+                  key={index}
+                  className="hover:underline transition"
+                  href={path}
+                >
+                  {name}
+                </Link>
+              ))}
             </div>
           </div>
 

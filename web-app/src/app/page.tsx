@@ -2,9 +2,68 @@
 
 import ContactForm from "@/components/ContactForm";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { FaArrowDownLong } from "react-icons/fa6";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { HiCheck } from "react-icons/hi";
 
 const Page = () => {
+  const services = [
+    {
+      id: "01",
+      label: "Energia i gaz",
+      title: "Negocjuj lepsze warunki zakupu energii.",
+      description:
+        "Analizujemy obecne umowy i porównujemy oferty sprzedawców, aby zapewnić Twojej firmie najkorzystniejsze stawki oraz stabilność kosztów.",
+      features: [
+        "analiza taryf i stawek",
+        "porównanie ofert rynkowych",
+        "wsparcie w negocjacjach",
+      ],
+      href: "/energy",
+    },
+    {
+      id: "02",
+      label: "Audyt energetyczny",
+      title: "Zobacz, gdzie Twoja firma traci energię.",
+      description:
+        "Identyfikujemy obszary nieefektywności i wskazujemy konkretne działania, które przekładają się na realne oszczędności.",
+      features: [
+        "analiza profilu zużycia",
+        "rekomendacje optymalizacji",
+        "raport oszczędności",
+      ],
+      href: "/audit",
+    },
+    {
+      id: "03",
+      label: "OZE",
+      title: "Inwestuj w niezależność energetyczną.",
+      description:
+        "Doradzamy przy wdrażaniu fotowoltaiki, magazynów energii i innych rozwiązań OZE dopasowanych do potrzeb Twojej firmy.",
+      features: [
+        "analiza opłacalności",
+        "dobór technologii",
+        "wsparcie inwestycyjne",
+      ],
+      href: "/renewable",
+    },
+    {
+      id: "04",
+      label: "Consierge",
+      title: "Zyskaj zewnętrzny dział energii dla swojej firmy.",
+      description:
+        "Zapewniamy stałą opiekę energetyczną — monitorujemy rynek, negocjujemy warunki, koordynujemy działania i dbamy o optymalizację kosztów energii w Twojej firmie.",
+      features: [
+        "dedykowany opiekun energetyczny",
+        "monitoring umów i rynku",
+        "strategia zakupowa energii",
+        "koordynacja wszystkich usług energetycznych",
+      ],
+      href: "/consierge",
+    },
+  ];
+
   return (
     <div className="flex flex-col gap-12">
       <section className="relative h-screen w-full text-white font-primary">
@@ -23,82 +82,71 @@ const Page = () => {
                   .getElementById("hero")
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="bg-white rounded-full border hover:bg-border text-accent border-gray-600/20 px-2 py-6 animate-bounce"
+              className="bg-white rounded-full text-accent px-2 py-6 animate-bounce transition hover:bg-white/80"
             >
               <FaArrowDownLong />
             </Button>
           </div>
         </div>
       </section>
-      <section id="hero" className="container bg-gray-50 py-20 px-6 mt-4">
-        <div className="flex flex-col gap-8">
-          <h2 className="text-4xl font-bold text-center mb-12">
-            Jak to działa?
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-2xl border hover:shadow-md transition">
-              <h3 className="text-xl font-semibold mb-2">1. Analiza</h3>
-              <p className="text-secondary">
-                Zbieramy dane dotyczące zużycia energii i identyfikujemy obszary
-                strat.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-2xl border hover:shadow-md transition">
-              <h3 className="text-xl font-semibold mb-2">2. Optymalizacja</h3>
-              <p className="text-secondary">
-                System dobiera najlepsze rozwiązania i dostawców.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-2xl border hover:shadow-md transition">
-              <h3 className="text-xl font-semibold mb-2">3. Oszczędności</h3>
-              <p className="text-secondary">
-                Realne zmniejszenie kosztów i większa kontrola nad energią.
-              </p>
-            </div>
-          </div>
-          <div className=" grid grid-cols-1 md:grid-cols-3 gap-8 text-center mt-">
-            <div className="p-6 border rounded-2xl">
-              <p className="text-4xl font-bold text-accent">+1200</p>
-              <p className="text-secondary mt-2">obsługiwanych klientów</p>
-            </div>
-
-            <div className="p-6 border rounded-2xl">
-              <p className="text-4xl font-bold text-accent">-32%</p>
-              <p className="text-secondary mt-2">średnie oszczędności</p>
-            </div>
-
-            <div className="p-6 border rounded-2xl">
-              <p className="text-4xl font-bold text-accent">24/7</p>
-              <p className="text-secondary mt-2">monitoring systemu</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="bg-gray-50 container">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="flex flex-col gap-6">
-            <h2 className="text-4xl font-bold">Zaawansowana analiza danych</h2>
-
-            <p className="text-secondary">
-              Nasza platforma analizuje dane w czasie rzeczywistym, wykrywając
-              nieefektywności i sugerując konkretne działania optymalizacyjne.
+      <section id="hero" className="container py-20 px-6 mt-4">
+        <div className="flex flex-col gap-16">
+          <div className="text-center max-w-4xl mx-auto">
+            <p className="uppercase tracking-[4px] text-white/85 text-md font-medium mb-4">
+              Nasze usługi
             </p>
 
-            <ul className="flex flex-col gap-3 text-secondary">
-              <li>✔ monitoring w czasie rzeczywistym</li>
-              <li>✔ automatyczne raporty</li>
-              <li>✔ integracja z systemami</li>
-            </ul>
+            <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6">
+              Cztery ścieżki do niższych kosztów energii.
+            </h2>
+
+            <p className="text-white/90 text-lg leading-relaxed">
+              Pomagamy firmom skutecznie zarządzać energią — od optymalizacji
+              zakupu energii i gazu, przez audyty energetyczne, aż po wdrożenia
+              odnawialnych źródeł energii.
+            </p>
           </div>
 
-          <div className="bg-white p-10 rounded-2xl border shadow-sm text-center">
-            <p className="text-5xl font-bold text-accent mb-2">AI</p>
-            <p className="text-secondary">
-              Inteligentne algorytmy optymalizujące zużycie energii
-            </p>
+          <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
+            {services.map((service) => (
+              <div
+                key={service.id}
+                className="group rounded-4xl border border-white/10 bg-white/10 backdrop-blur-xl p-8 text-white shadow-2xl flex flex-col transition-all duration-500 ease-out hover:-translate-y-3 hover:bg-white/20 hover:border-white/20 hover:shadow-[0_30px_90px_rgba(255,255,255,0.12)]"
+              >
+                <div className="mb-8">
+                  <p className="text-5xl font-bold text-white mb-4 transition-opacity duration-300 group-hover:opacity-100">
+                    {service.id}
+                  </p>
+
+                  <p className="uppercase tracking-[3px] text-white/70 text-lg font-medium transition-colors duration-300 group-hover:text-white/80">
+                    {service.label}
+                  </p>
+                </div>
+
+                <h3 className="text-3xl font-bold mb-4 leading-tight transition-colors duration-300 group-hover:text-white">
+                  {service.title}
+                </h3>
+
+                <p className="text-white/70 leading-relaxed mb-8 flex-1 transition-colors duration-300 group-hover:text-white/90">
+                  {service.description}
+                </p>
+
+                <div className="flex flex-col gap-3 text-sm text-white/70 mb-8 transition-colors duration-300 group-hover:text-white/90">
+                  {service.features.map((feature) => (
+                    <span className="flex items-center gap-2" key={feature}>
+                      <HiCheck />
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+                <Link href={service.href} className="w-max">
+                  <Button variant="ghost" className="w-fit gap-0.5 border-none">
+                    <p>Dowiedz się więcej</p>
+                    <MdKeyboardArrowRight className="group-hover:translate-x-1 transition-transform duration-300" />
+                  </Button>
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>

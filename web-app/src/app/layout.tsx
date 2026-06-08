@@ -2,6 +2,7 @@ import Nav from "@/components/Nav";
 import "./globals.css";
 import { DM_Sans, Barlow } from "next/font/google";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/sonner";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -36,9 +37,10 @@ export default function RootLayout({
         <div className="absolute top-0 left-0 w-full z-50 px-6 py-4">
           <Nav />
         </div>
-        <main className="w-full max-w-8xl px-8 flex flex-col items-center justify-center">
+        <main className="max-w-8xl px-12 flex flex-col items-center justify-center">
           {children}
         </main>
+        <Toaster />
         <Footer />
       </body>
     </html>

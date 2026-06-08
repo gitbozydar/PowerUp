@@ -8,6 +8,7 @@
   --color-accent: #012342;
   --color-border: #d7d7d7;
   --color-error: #b91c1c;
+  --color-success: #00c950;
 
   --font-primary: var(--font-dmSans);
   --font-secondary: var(--font-barlow);
