@@ -4,6 +4,7 @@ import businessContactRouter from "./routes/businessContact.js";
 import checkEmailRouter from "./routes/checkEmail.js";
 import registerRouter from "./routes/register.js";
 import companyNameRouter from "./routes/companyName.js";
+import contactRouter from "./routes/contact.js";
 import cors from "cors";
 
 const app = express();
@@ -31,6 +32,8 @@ app.use("/api/check-email", checkEmailRouter);
 app.use("/api/register", registerRouter);
 
 app.use("/api/company", companyNameRouter);
+
+app.use("/api/contact", contactRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
