@@ -12,9 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D8E9FE5E0DF14CB182D03800912BBE82 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_4ED0EEBCE6DB4AB1BF15F2985BAA5FEB }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6FA2824814D54513AF7C14F00F4FD18F }}
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: powerup-backend
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISH_PROFILE }}
           package: backend
