@@ -6,6 +6,7 @@ import Link from "next/link";
 import { FaArrowDownLong } from "react-icons/fa6";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { HiCheck } from "react-icons/hi";
+import { links } from "@/lib/links";
 
 const Page = () => {
   const services = [
@@ -20,7 +21,6 @@ const Page = () => {
         "porównanie ofert rynkowych",
         "wsparcie w negocjacjach",
       ],
-      href: "/energy",
     },
     {
       id: "02",
@@ -33,7 +33,6 @@ const Page = () => {
         "rekomendacje optymalizacji",
         "raport oszczędności",
       ],
-      href: "/audit",
     },
     {
       id: "03",
@@ -46,7 +45,6 @@ const Page = () => {
         "dobór technologii",
         "wsparcie inwestycyjne",
       ],
-      href: "/renewable",
     },
     {
       id: "04",
@@ -60,7 +58,6 @@ const Page = () => {
         "strategia zakupowa energii",
         "koordynacja wszystkich usług energetycznych",
       ],
-      href: "/consierge",
     },
   ];
 
@@ -89,7 +86,7 @@ const Page = () => {
           </div>
         </div>
       </section>
-      <section id="hero" className="container py-20 px-6 mt-4">
+      <section id="hero" className="py-20 mt-4">
         <div className="flex flex-col gap-16">
           <div className="text-center max-w-4xl mx-auto">
             <p className="uppercase tracking-[4px] text-white/85 text-md font-medium mb-4">
@@ -108,7 +105,7 @@ const Page = () => {
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
-            {services.map((service) => (
+            {services.map((service, index) => (
               <div
                 key={service.id}
                 className="group rounded-4xl border border-white/10 bg-white/10 backdrop-blur-xl p-8 text-white shadow-2xl flex flex-col transition-all duration-500 ease-out hover:-translate-y-3 hover:bg-white/20 hover:border-white/20 hover:shadow-[0_30px_90px_rgba(255,255,255,0.12)]"
@@ -139,7 +136,7 @@ const Page = () => {
                     </span>
                   ))}
                 </div>
-                <Link href={service.href} className="w-max">
+                <Link href={links[index].path} className="w-max">
                   <Button variant="ghost" className="w-fit gap-0.5 border-none">
                     <p>Dowiedz się więcej</p>
                     <MdKeyboardArrowRight className="group-hover:translate-x-1 transition-transform duration-300" />

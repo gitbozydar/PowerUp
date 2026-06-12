@@ -9,13 +9,22 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+import { FaFilePdf, FaFileImage } from "react-icons/fa";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import getCompanyName from "@/lib/companyName";
 import { Checkbox } from "./ui/checkbox";
 import { toast } from "sonner";
@@ -67,10 +76,19 @@ const schema = z.object({
   }),
 });
 
+const formatFileName = (name: string) => {
+  const dotIndex = name.lastIndexOf(".");
+  const ext = dotIndex !== -1 ? name.slice(dotIndex) : "";
+  const base = dotIndex !== -1 ? name.slice(0, dotIndex) : name;
+
+  return base.length > 10 ? base.slice(0, 10) + "..." + ext : name;
+};
+
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
     register,
@@ -86,9 +104,34 @@ const ContactForm = () => {
     },
   });
 
-  const onSubmit = (data: ContactFormValues) => {
+  const onSubmit = async (data: ContactFormValues) => {
     setLoading(true);
     try {
+      const formData = new FormData();
+
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      formData.append("company", data.company);
+      formData.append("nip", data.nip);
+      formData.append("letter", data.letter);
+
+      data.invoice.forEach((file) => {
+        formData.append("invoice", file);
+      });
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/contact`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Błąd wysyłki");
+      }
+
       toast.success("Formularz został przesłany pomyślnie.", {
         position: "bottom-right",
         classNames: {
@@ -112,6 +155,7 @@ const ContactForm = () => {
         },
       });
     } finally {
+      console.log(data);
       setLoading(false);
       setOpen(false);
     }
@@ -144,32 +188,31 @@ const ContactForm = () => {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="bg-white text-primary rounded-4xl p-6 shadow-lg">
+      <DialogContent className="bg-white text-primary rounded-4xl p-6 shadow-lg h-[85vh] flex flex-col overflow-hidden">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">
             Napisz do nas
           </DialogTitle>
         </DialogHeader>
-
         <DialogDescription className="sr-only">
           Formularz kontaktowy
         </DialogDescription>
-
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4 flex-1 overflow-y-auto px-2 py-1"
+        >
           <div className="input-container">
             <Input {...register("name")} placeholder="Imię i nazwisko" />
             {errors.name?.message && (
               <p className="text-error text-sm">{errors.name?.message}</p>
             )}
           </div>
-
           <div className="input-container">
             <Input {...register("email")} placeholder="Email" />
             {errors.email?.message && (
               <p className="text-error text-sm">{errors.email?.message}</p>
             )}
           </div>
-
           <div className="input-container">
             <Input
               maxLength={9}
@@ -180,14 +223,12 @@ const ContactForm = () => {
               <p className="text-error text-sm">{errors.phone?.message}</p>
             )}
           </div>
-
           <div className="input-container">
             <Input {...register("nip")} maxLength={10} placeholder="NIP" />
             {errors.nip?.message && (
               <p className="text-error text-sm">{errors.nip?.message}</p>
             )}
           </div>
-
           <div className="input-container">
             <Input
               disabled={!nip || nip.length < 10}
@@ -200,7 +241,6 @@ const ContactForm = () => {
               <p className="text-error text-sm">{errors.company?.message}</p>
             )}
           </div>
-
           <div className="input-container">
             <textarea
               {...register("letter")}
@@ -211,7 +251,6 @@ const ContactForm = () => {
               <p className="text-error text-sm">{errors.letter?.message}</p>
             )}
           </div>
-
           <div className="input-container">
             <label className="text-sm text-gray-600 block mb-2">
               Faktury (PDF, JPG, PNG)
@@ -246,6 +285,7 @@ const ContactForm = () => {
               </p>
 
               <input
+                ref={fileInputRef}
                 id="invoice"
                 type="file"
                 multiple
@@ -263,6 +303,8 @@ const ContactForm = () => {
 
                     return updated;
                   });
+
+                  e.target.value = "";
                 }}
               />
 
@@ -271,29 +313,49 @@ const ContactForm = () => {
                   {files.map((file, index) => (
                     <div
                       key={`${file.name}-${index}`}
-                      className="flex items-center justify-between gap-3 rounded-lg bg-white/50 px-3 py-2 text-sm overflow-hidden"
+                      className="flex items-center justify-between gap-3 rounded-lg bg-white/50 px-3 py-2 overflow-hidden"
                     >
-                      <span className="flex-1 min-w-0 truncate">
-                        {file.name}
-                      </span>
+                      <div className="flex items-center gap-2 min-w-0">
+                        {file.type === "application/pdf" ? (
+                          <FaFilePdf className="text-red-500 shrink-0" />
+                        ) : (
+                          <FaFileImage className="text-blue-500 shrink-0" />
+                        )}
 
-                      <button
-                        type="button"
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <span className="truncate text-sm max-w-45">
+                                {formatFileName(file.name)}
+                              </span>
+                            </TooltipTrigger>
+
+                            <TooltipContent>
+                              <p>{file.name}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </div>
+
+                      <Button
+                        variant="ghost"
                         onClick={(e) => {
                           e.stopPropagation();
 
                           const updated = files.filter((_, i) => i !== index);
-
                           setFiles(updated);
-
                           setValue("invoice", updated, {
                             shouldValidate: true,
                           });
+
+                          if (fileInputRef.current) {
+                            fileInputRef.current.value = "";
+                          }
                         }}
-                        className="shrink-0 text-error hover:underline"
+                        className="shrink-0 text-red-500 hover:text-red-600"
                       >
-                        usuń
-                      </button>
+                        ✕
+                      </Button>
                     </div>
                   ))}
                 </div>
@@ -306,7 +368,6 @@ const ContactForm = () => {
               </p>
             )}
           </div>
-
           <div className="flex items-center gap-2">
             <Checkbox
               checked={!!consent}
@@ -327,7 +388,6 @@ const ContactForm = () => {
               Wyrażam zgodę na przetwarzanie danych osobowych w celu kontaktu.
             </label>
           </div>
-
           <Button
             type="submit"
             disabled={loading}
