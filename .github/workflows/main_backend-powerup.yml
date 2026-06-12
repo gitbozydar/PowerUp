@@ -61,5 +61,5 @@ jobs:
         with:
           app-name: 'backend-powerup'
           slot-name: 'Production'
-          package: .
+          package: backend
           
