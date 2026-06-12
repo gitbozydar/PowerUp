@@ -1,4 +1,4 @@
-name: Deploy backend to Azure Web App
+name: Deploy backend
 
 on:
   push:
@@ -12,9 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Deploy to Azure Web App
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D84C4D89711842B7ABB67938710CC566 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9CE3AD3ECB084411AB30F3EBCF4F9577 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_44BB19C67FF94C899D64DCF364B54168 }}
+
+      - name: Deploy backend only
         uses: azure/webapps-deploy@v3
         with:
-          app-name: powerup-backend
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISH_PROFILE }}
+          app-name: gopowerup-backend
           package: backend
