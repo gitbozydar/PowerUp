@@ -25,7 +25,7 @@ const container = {
 
 const Audit = () => {
   return (
-    <section className="w-full min-h-screen py-24 flex items-center justify-center overflow-hidden">
+    <section className="w-full min-h-screen py-28 flex items-center justify-center overflow-hidden">
       <div className="grid w-full max-w-7xl grid-cols-1 gap-16 lg:grid-cols-2 items-center">
         <motion.div
           variants={container}

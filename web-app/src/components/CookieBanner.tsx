@@ -42,7 +42,14 @@ const CookieBanner = () => {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 40, scale: 0.95 }}
         transition={{ duration: 0.35, ease: "easeOut" }}
-        className="fixed bottom-6 right-6 z-9999 w-95 rounded-2xl border border-black/10 bg-white shadow-2xl p-5 backdrop-blur-xl"
+        className="
+          fixed left-4 right-4 bottom-4
+          md:bottom-6 md:left-auto md:right-6 md:w-[92vw] md:max-w-sm
+          z-[9999]
+          rounded-2xl
+          border border-black/10 bg-white
+          shadow-2xl p-5 backdrop-blur-xl
+        "
       >
         <h3 className="text-lg font-semibold text-black">🍪 Cookies</h3>
 
@@ -51,18 +58,18 @@ const CookieBanner = () => {
           ruch. Możesz zaakceptować lub odrzucić ich użycie.
         </p>
 
-        <div className="flex gap-3 mt-5">
+        <div className="flex flex-col md:flex-row gap-3 mt-5">
           <Button
             onClick={handleReject}
             variant="outline"
-            className="flex-1 border-black/20 hover:bg-black/5"
+            className="flex-1 border-black/20 hover:bg-black/5 p-2"
           >
             Odrzuć
           </Button>
 
           <Button
             onClick={handleAccept}
-            className="flex-1 bg-black text-white hover:bg-black/80"
+            className="flex-1 bg-accent text-white hover:bg-accent/80 p-2"
           >
             Akceptuję
           </Button>

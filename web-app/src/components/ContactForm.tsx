@@ -2,6 +2,7 @@
 
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -29,6 +30,7 @@ import getCompanyName from "@/lib/companyName";
 import { Checkbox } from "./ui/checkbox";
 import { toast } from "sonner";
 import { Spinner } from "./ui/spinner";
+import { X } from "lucide-react";
 
 type ContactFormValues = {
   name: string;
@@ -196,6 +198,21 @@ const ContactForm = () => {
         <DialogDescription className="sr-only">
           Formularz kontaktowy
         </DialogDescription>
+        <DialogClose asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="
+      absolute right-4 top-4
+      rounded
+      bg-black/5 hover:bg-black/10
+      backdrop-blur-md
+      z-50
+    "
+          >
+            <X className="w-5 h-5 text-primary" />
+          </Button>
+        </DialogClose>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-4 flex-1 overflow-y-auto px-2 py-1"

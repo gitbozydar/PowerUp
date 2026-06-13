@@ -18,7 +18,7 @@ const BackgroundVideo = () => {
       muted
       playsInline
       preload="none"
-      className="fixed inset-0 w-full h-full object-cover -z-10"
+      className="fixed inset-0 w-screen h-dvh object-cover -z-50"
     >
       <source src="/video.mp4" type="video/mp4" />
     </video>
