@@ -155,7 +155,6 @@ const ContactForm = () => {
         },
       });
     } finally {
-      console.log(data);
       setLoading(false);
       setOpen(false);
     }
