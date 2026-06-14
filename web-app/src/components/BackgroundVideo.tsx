@@ -12,16 +12,18 @@ const BackgroundVideo = () => {
   if (!mounted) return null;
 
   return (
-    <video
-      autoPlay
-      loop
-      muted
-      playsInline
-      preload="none"
-      className="fixed inset-0 w-screen h-dvh object-cover -z-50"
-    >
-      <source src="/video.mp4" type="video/mp4" />
-    </video>
+    <div className="fixed inset-0 -z-50 overflow-hidden bg-black">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/video.mp4" type="video/mp4" />
+      </video>
+    </div>
   );
 };
 
