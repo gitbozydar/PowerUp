@@ -25,6 +25,6 @@ export const socials: SocialLink[] = [
   },
   {
     icon: FaInstagram,
-    path: "https://instagram.com",
+    path: "https://www.instagram.com/powerupenergyconsulting",
   },
 ];

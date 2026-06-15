@@ -88,6 +88,7 @@ const formatFileName = (name: string) => {
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
+  const [companyLoading, setCompanyLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -166,15 +167,28 @@ const ContactForm = () => {
   const consent = watch("consent");
 
   useEffect(() => {
+    if (!nip || nip.length < 10) {
+      setValue("company", "");
+    }
+  }, [nip, setValue]);
+
+  useEffect(() => {
     const fetchData = async () => {
-      if (nip?.length === 10) {
-        const company = await getCompanyName(nip);
-        if (company?.name) {
-          setValue("company", company.name, {
-            shouldValidate: true,
-            shouldDirty: true,
-          });
+      try {
+        if (nip?.length === 10) {
+          setCompanyLoading(true);
+          const company = await getCompanyName(nip);
+          if (company?.name) {
+            setValue("company", company.name, {
+              shouldValidate: true,
+              shouldDirty: true,
+            });
+          }
         }
+      } catch (error) {
+        console.error("Błąd podczas pobierania nazwy firmy:", error);
+      } finally {
+        setCompanyLoading(false);
       }
     };
     fetchData();
@@ -245,7 +259,7 @@ const ContactForm = () => {
               <p className="text-error text-sm">{errors.nip?.message}</p>
             )}
           </div>
-          <div className="input-container">
+          <div className="relative input-container">
             <Input
               disabled={!nip || nip.length < 10}
               {...register("company")}
@@ -253,6 +267,11 @@ const ContactForm = () => {
                 !nip ? "Najpierw wprowadź NIP" : "Wprowadź nazwę firmy"
               }
             />
+            {companyLoading && (
+              <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                <Spinner />
+              </div>
+            )}
             {errors.company?.message && (
               <p className="text-error text-sm">{errors.company?.message}</p>
             )}
@@ -346,7 +365,7 @@ const ContactForm = () => {
                               </span>
                             </TooltipTrigger>
 
-                            <TooltipContent>
+                            <TooltipContent className="bg-gray-800 text-white text-sm">
                               <p>{file.name}</p>
                             </TooltipContent>
                           </Tooltip>
