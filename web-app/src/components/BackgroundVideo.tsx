@@ -1,41 +1,27 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
 const BackgroundVideo = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    video.muted = true;
-    video.playsInline = true;
-
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {});
-    }
+    setMounted(true);
   }, []);
 
-  return (
-    <div className="fixed inset-0 -z-50 overflow-hidden bg-black">
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        disablePictureInPicture
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="/video.mp4" type="video/mp4" />
-      </video>
+  if (!mounted) return null;
 
-      {/* optional dark overlay */}
-      <div className="absolute inset-0 bg-black/40" />
-    </div>
+  return (
+    <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="none"
+      className="fixed inset-0 w-full h-full object-cover -z-10"
+    >
+      <source src="/video.mp4" type="video/mp4" />
+    </video>
   );
 };
 

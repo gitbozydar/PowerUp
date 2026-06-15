@@ -8,9 +8,9 @@ import contactRouter from "./routes/contact.js";
 import cors from "cors";
 
 const app = express();
-console.log("APP STARTING...");
+app.use(cors({ origin: true, credentials: true }));
 
-app.use(cors({ origin: "*" }));
+console.log("APP STARTING...");
 
 app.use(express.json());
 

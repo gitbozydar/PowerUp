@@ -26,24 +26,20 @@ export default function RootLayout({
   return (
     <html lang="pl" className={`${dmSans.variable} ${barlow.variable}`}>
       <body className="relative min-h-screen flex w-full flex-col justify-center items-center overflow-x-hidden bg-black">
-        <div className="fixed inset-0 z-0">
-          <BackgroundVideo />
-          <div className="absolute inset-0 bg-black/40" />
-        </div>
+        <BackgroundVideo />
 
-        <div className="relative z-10 w-full">
+        <div className="fixed inset-0 bg-black/40 -z-10" />
+
+        <div className="absolute top-0 left-0 w-full z-50 px-6 py-4">
           <Nav />
         </div>
 
-        <main className="relative z-10 max-w-8xl px-12 flex flex-col items-center justify-center w-full">
+        <main className="max-w-8xl px-12 flex flex-col items-center justify-center w-full">
           {children}
         </main>
 
-        <div className="relative z-10">
-          <Footer />
-        </div>
-
         <Toaster />
+        <Footer />
         <CookieBanner />
       </body>
     </html>
