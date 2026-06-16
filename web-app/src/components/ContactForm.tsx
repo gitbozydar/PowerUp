@@ -259,19 +259,22 @@ const ContactForm = () => {
               <p className="text-error text-sm">{errors.nip?.message}</p>
             )}
           </div>
-          <div className="relative input-container">
-            <Input
-              disabled={!nip || nip.length < 10}
-              {...register("company")}
-              placeholder={
-                !nip ? "Najpierw wprowadź NIP" : "Wprowadź nazwę firmy"
-              }
-            />
-            {companyLoading && (
-              <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                <Spinner />
-              </div>
-            )}
+          <div className="input-container">
+            <div className="relative">
+              <Input
+                disabled={!nip || nip.length < 10}
+                {...register("company")}
+                placeholder={
+                  !nip ? "Najpierw wprowadź NIP" : "Wprowadź nazwę firmy"
+                }
+              />
+              {companyLoading && (
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  <Spinner />
+                </div>
+              )}
+            </div>
+
             {errors.company?.message && (
               <p className="text-error text-sm">{errors.company?.message}</p>
             )}

@@ -23,6 +23,10 @@
   --background-hero: url("/assets/background.png");
 }
 
+html,
+body {
+  height: 100%;
+}
 html {
   scroll-behavior: smooth;
   overflow-y: overlay;

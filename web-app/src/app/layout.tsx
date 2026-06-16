@@ -25,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pl" className={`${dmSans.variable} ${barlow.variable}`}>
-      <body className="relative min-h-screen flex w-full flex-col justify-center items-center overflow-x-hidden bg-black">
+      <body className="relative w-full min-h-dvh flex flex-col overflow-x-hidden bg-black">
         <BackgroundVideo />
 
         <div className="fixed inset-0 bg-black/40 -z-10" />
@@ -34,9 +34,7 @@ export default function RootLayout({
           <Nav />
         </div>
 
-        <main className="max-w-8xl px-12 flex flex-col items-center justify-center w-full">
-          {children}
-        </main>
+        <main className="flex flex-col w-full max-w-8xl px-12">{children}</main>
 
         <Toaster />
         <Footer />
