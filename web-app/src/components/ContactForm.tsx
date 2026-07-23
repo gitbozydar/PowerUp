@@ -197,8 +197,11 @@ const ContactForm = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="w-fit group gap-0.5 border-none">
-          <p>Wypełnij formularz</p>
+        <Button
+          variant="primary"
+          className="w-fit group gap-0.5 border-none p-8 rounded-2xl"
+        >
+          <p>Sprawdź, ile możesz zaoszczędzić</p>
           <MdKeyboardArrowRight className="group-hover:translate-x-1 transition-transform duration-300" />
         </Button>
       </DialogTrigger>
@@ -217,12 +220,12 @@ const ContactForm = () => {
             variant="ghost"
             size="icon"
             className="
-      absolute right-4 top-4
-      rounded
-      bg-black/5 hover:bg-black/10
-      backdrop-blur-md
-      z-50
-    "
+        absolute right-4 top-4
+        rounded
+        bg-black/5 hover:bg-black/10
+        backdrop-blur-md
+        z-50
+      "
           >
             <X className="w-5 h-5 text-primary" />
           </Button>
@@ -415,12 +418,12 @@ const ContactForm = () => {
                 });
               }}
               className={`
-    border-gray-300
-    data-[state=checked]:bg-accent
-    data-[state=checked]:border-accent
-    data-[state=checked]:text-white
-    ${errors.consent ? "border-red-500" : ""}
-  `}
+      border-gray-300
+      data-[state=checked]:bg-accent
+      data-[state=checked]:border-accent
+      data-[state=checked]:text-white 
+      ${errors.consent ? "border-red-500" : ""}
+    `}
             />
             <label className="text-xs text-gray-600 leading-snug">
               Wyrażam zgodę na przetwarzanie danych osobowych w celu kontaktu.

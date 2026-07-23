@@ -29,11 +29,16 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex-1 text-sm text-white text-center md:text-right">
-            <p>
+          <div className="flex-1 text-xs text-center md:text-right leading-6">
+            <p className="font-medium text-white">
               POWERUP ENERGY CONSULTING SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ
             </p>
-            <p>kontakt@gopowerup.pl</p>
+
+            <p>KRS: 0001211902 | NIP: 5243060039 | REGON: 543655597</p>
+
+            <a href="mailto:kontakt@gopowerup.pl" className="hover:underline">
+              kontakt@gopowerup.pl
+            </a>
           </div>
         </div>
       </div>
