@@ -12,18 +12,6 @@ const Page = () => {
   const services = [
     {
       id: "01",
-      label: "Energia i gaz",
-      title: "Negocjuj lepsze warunki zakupu energii.",
-      description:
-        "Analizujemy obecne umowy i porównujemy oferty sprzedawców, aby zapewnić Twojej firmie najkorzystniejsze stawki oraz stabilność kosztów.",
-      features: [
-        "analiza taryf i stawek",
-        "porównanie ofert rynkowych",
-        "wsparcie w negocjacjach",
-      ],
-    },
-    {
-      id: "02",
       label: "Audyt energetyczny",
       title: "Zobacz, gdzie Twoja firma traci energię.",
       description:
@@ -34,6 +22,19 @@ const Page = () => {
         "raport oszczędności",
       ],
     },
+    {
+      id: "02",
+      label: "Energia i gaz",
+      title: "Negocjuj lepsze warunki zakupu energii.",
+      description:
+        "Analizujemy obecne umowy i porównujemy oferty sprzedawców, aby zapewnić Twojej firmie najkorzystniejsze stawki oraz stabilność kosztów.",
+      features: [
+        "analiza taryf i stawek",
+        "porównanie ofert rynkowych",
+        "wsparcie w negocjacjach",
+      ],
+    },
+
     {
       id: "03",
       label: "OZE",
@@ -62,7 +63,7 @@ const Page = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col mb-16">
       <section className="relative h-screen w-full text-white font-primary">
         <div className="relative z-10 h-full grid grid-rows-3 place-items-center px-6 py-10">
           <div className="row-start-2 text-center">
@@ -86,7 +87,7 @@ const Page = () => {
           </div>
         </div>
       </section>
-      <section id="hero" className="py-20 mt-4">
+      <section id="hero" className="mt-4">
         <div className="flex flex-col gap-16">
           <div className="text-center max-w-4xl mx-auto">
             <p className="uppercase tracking-[4px] text-white/85 text-md font-medium mb-4">
@@ -103,6 +104,13 @@ const Page = () => {
               odnawialnych źródeł energii.
             </p>
           </div>
+          <section className="text-white container flex-col items-center mx-auto p-4">
+            <h2 className="text-3xl font-bold mb-4 ">
+              Zacznij kontrolować swoją energię
+            </h2>
+            <p className="text-white/70 mb-6">Szybko. Prosto. Efektywnie.</p>
+            <ContactForm />
+          </section>
 
           <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
             {services.map((service, index) => (
@@ -146,13 +154,6 @@ const Page = () => {
             ))}
           </div>
         </div>
-      </section>
-      <section className="text-white container flex-col">
-        <h2 className="text-3xl font-bold mb-4">
-          Zacznij kontrolować swoją energię
-        </h2>
-        <p className="text-white/70 mb-6">Szybko. Prosto. Efektywnie.</p>
-        <ContactForm />
       </section>
     </div>
   );

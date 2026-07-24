@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import BackgroundVideo from "@/components/BackgroundVideo";
 import CookieBanner from "@/components/CookieBanner";
+import { CallToast } from "@/components/CallToast";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -37,6 +38,8 @@ export default function RootLayout({
         <main className="flex flex-col w-full max-w-8xl px-12">{children}</main>
 
         <Toaster />
+        <CallToast />
+
         <Footer />
         <CookieBanner />
       </body>

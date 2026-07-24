@@ -12,10 +12,11 @@ type SocialLink = {
 };
 
 export const links: NavLink[] = [
-  { name: "Energia i Gaz", path: "/energy" },
   { name: "Audyt", path: "/audit" },
+  { name: "Energia i Gaz", path: "/energy" },
   { name: "OZE", path: "/renewable" },
   { name: "Concierge", path: "/concierge" },
+  { name: "Kontakt", path: "/contact" },
 ];
 
 export const socials: SocialLink[] = [

@@ -199,10 +199,51 @@ const ContactForm = () => {
       <DialogTrigger asChild>
         <Button
           variant="primary"
-          className="w-fit group gap-0.5 border-none p-8 rounded-2xl"
+          className="
+    group
+    inline-flex
+    h-auto
+    w-full
+    sm:w-fit
+    items-center
+    justify-center
+    gap-2
+    rounded-2xl
+    px-5
+    py-3
+    sm:px-8
+    sm:py-5
+    text-base
+    font-semibold
+    leading-tight
+    text-center
+    whitespace-normal
+
+    shadow-lg
+    shadow-[rgba(0,61,117,0.25)]
+    transition-all
+    duration-300
+
+    hover:-translate-y-0.5
+    hover:shadow-xl
+    hover:bg-accent-hover
+
+    active:translate-y-0
+    active:scale-[0.98]
+  "
         >
-          <p>Sprawdź, ile możesz zaoszczędzić</p>
-          <MdKeyboardArrowRight className="group-hover:translate-x-1 transition-transform duration-300" />
+          <span>Sprawdź, ile możesz zaoszczędzić</span>
+
+          <MdKeyboardArrowRight
+            className="
+      h-6
+      w-6
+      shrink-0
+      transition-transform
+      duration-300
+      group-hover:translate-x-1
+    "
+          />
         </Button>
       </DialogTrigger>
 
